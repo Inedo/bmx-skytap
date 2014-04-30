@@ -1,0 +1,47 @@
+﻿<div data-bind="visible: vms().length == 0">
+    <div>
+        <select data-bind="value: defaultAccess">
+            <option value="view_only">View only</option>
+            <option value="use">Use</option>
+            <option value="run_and_use">Run and use</option>
+        </select>
+    </div>
+    <p>
+        Manage <a data-bind="click: addVm" href="#">individual virtual machine access</a> instead.
+    </p>
+</div>
+<table data-bind="visible: vms().length > 0" class="styled-table">
+    <thead>
+        <tr>
+            <th>Virtual Machine</th>
+            <th>Access</th>
+            <th style="width: 20px;"></th>
+        </tr>
+    </thead>
+    <tbody>
+        <!-- ko foreach: vms -->
+        <tr>
+            <td>
+                <input data-bind="value: name" type="text" />
+            </td>
+            <td>
+                <select data-bind="value: access">
+                    <option value="view_only">View only</option>
+                    <option value="use">Use</option>
+                    <option value="run_and_use">Run and use</option>
+                </select>
+            </td>
+            <td>
+                <a data-bind="click: $parent.deleteVm" class="SmallDeleteButton" title="Remove" href="#"></a>
+            </td>
+        </tr>
+        <!-- /ko -->
+        <tr>
+            <td colspan="3">
+                <div class="action-button-container">
+                    <a data-bind="click: addVm" class="button" href="#">Add</a>
+                </div>
+            </td>
+        </tr>
+    </tbody>
+</table>
