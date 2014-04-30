@@ -5,7 +5,7 @@ Skytap BuildMaster extension
 
 **License**
 
-Copyright (c) 2013 Inedo, LLC. All rights reserved.
+Copyright (c) 2014 Inedo, LLC. All rights reserved.
 
 http://inedo.com/buildmaster/extensions/Skytap
 
