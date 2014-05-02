@@ -40,7 +40,7 @@ namespace Inedo.BuildMasterExtensions.Skytap
             );
         }
 
-        internal override void Execute(SkytapClient client, SkytapResource configuration)
+        internal override void Execute(SkytapClient client, SkytapConfiguration configuration)
         {
             if (string.IsNullOrWhiteSpace(this.NewConfigurationName))
                 this.LogInformation("Creating configuration from {1} configuration...", configuration.Name);

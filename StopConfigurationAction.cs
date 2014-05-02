@@ -35,7 +35,7 @@ namespace Inedo.BuildMasterExtensions.Skytap
             );
         }
 
-        internal override void Execute(SkytapClient client, SkytapResource configuration)
+        internal override void Execute(SkytapClient client, SkytapConfiguration configuration)
         {
             var runstate = client.GetConfigurationRunstate(configuration.Id);
             if (runstate == "stopped")

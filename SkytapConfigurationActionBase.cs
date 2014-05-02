@@ -34,7 +34,7 @@ namespace Inedo.BuildMasterExtensions.Skytap
 
             this.LogDebug("Looking up configuration on Skytap...");
 
-            SkytapResource configuration = null;
+            SkytapConfiguration configuration = null;
             if (!string.IsNullOrWhiteSpace(this.ConfigurationId))
             {
                 configuration = client.GetConfiguration(this.ConfigurationId);
@@ -71,6 +71,6 @@ namespace Inedo.BuildMasterExtensions.Skytap
             this.LogDebug("Found configuration ID={0}, name={1}", configuration.Id, configuration.Name);
             this.Execute(client, configuration);
         }
-        internal abstract void Execute(SkytapClient client, SkytapResource configuration);
+        internal abstract void Execute(SkytapClient client, SkytapConfiguration configuration);
     }
 }

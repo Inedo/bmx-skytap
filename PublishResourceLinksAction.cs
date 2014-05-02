@@ -105,7 +105,7 @@ namespace Inedo.BuildMasterExtensions.Skytap
             return new ActionDescription(shortDesc, longDesc);
         }
 
-        internal override void Execute(SkytapClient client, SkytapResource configuration)
+        internal override void Execute(SkytapClient client, SkytapConfiguration configuration)
         {
             if (string.IsNullOrWhiteSpace(this.DefaultAccess) && (this.VirtualMachines == null || this.VirtualMachines.Length == 0))
             {

@@ -65,6 +65,10 @@
     <Compile Include="CopyConfigurationActionEditor.cs">
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
+    <Compile Include="CreateBuildMasterServersAction.cs" />
+    <Compile Include="CreateBuildMasterServersActionEditor.cs">
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
     <Compile Include="DeleteConfigurationAction.cs" />
     <Compile Include="DeleteConfigurationActionEditor.cs">
       <SubType>ASPXCodeBehind</SubType>
@@ -84,9 +88,14 @@
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="SkytapApi\SkytapClient.cs" />
+    <Compile Include="SkytapApi\SkytapConfiguration.cs" />
+    <Compile Include="SkytapApi\SkytapCredential.cs" />
+    <Compile Include="SkytapApi\SkytapNetworkInterface.cs" />
     <Compile Include="SkytapApi\SkytapPublishedSet.cs" />
     <Compile Include="SkytapApi\SkytapPublishedVmRef.cs" />
+    <Compile Include="SkytapApi\SkytapPublishedService.cs" />
     <Compile Include="SkytapApi\SkytapResource.cs" />
+    <Compile Include="SkytapApi\SkytapVirtualMachine.cs" />
     <Compile Include="SkytapConfigurationActionBase.cs" />
     <Compile Include="SkytapExtensionConfigurer.cs" />
     <Compile Include="SkytapExtensionConfigurerEditor.cs">

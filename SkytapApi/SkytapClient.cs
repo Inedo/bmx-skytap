@@ -88,7 +88,7 @@ namespace Inedo.BuildMasterExtensions.Skytap.SkytapApi
             );
         }
 
-        public SkytapResource GetConfiguration(string configurationId)
+        public SkytapConfiguration GetConfiguration(string configurationId)
         {
             try
             {
@@ -97,7 +97,7 @@ namespace Inedo.BuildMasterExtensions.Skytap.SkytapApi
                 if (configurationElement == null)
                     return null;
 
-                return new SkytapResource((string)configurationElement.Element("id"), (string)configurationElement.Element("name"));
+                return new SkytapConfiguration(configurationElement);
             }
             catch (WebException ex)
             {
@@ -107,14 +107,14 @@ namespace Inedo.BuildMasterExtensions.Skytap.SkytapApi
                     throw;
             }
         }
-        public SkytapResource GetConfigurationFromName(string configurationName)
+        public SkytapConfiguration GetConfigurationFromName(string configurationName)
         {
             var xdoc = this.Get("/configurations?name=" + Uri.EscapeDataString(configurationName));
             var configurationElement = xdoc.Descendants("configuration").FirstOrDefault();
             if (configurationElement == null)
                 return null;
 
-            return new SkytapResource((string)configurationElement.Element("id"), (string)configurationElement.Element("name"));
+            return this.GetConfiguration((string)configurationElement.Element("id"));
         }
         public IEnumerable<SkytapResource> ListConfigurations()
         {
