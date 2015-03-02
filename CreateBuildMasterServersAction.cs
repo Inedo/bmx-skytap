@@ -15,7 +15,7 @@ namespace Inedo.BuildMasterExtensions.Skytap
 {
     [ActionProperties(
         "Create BuildMaster Servers",
-        "Creates servers in BuildMaster for virtual machines in a Skytap configuration that have published services.")]
+        "Creates servers in BuildMaster for virtual machines in a Skytap environment that has published services.")]
     [Tag("skytap")]
     [CustomEditor(typeof(CreateBuildMasterServersActionEditor))]
     public sealed class CreateBuildMasterServersAction : SkytapConfigurationActionBase
@@ -26,7 +26,7 @@ namespace Inedo.BuildMasterExtensions.Skytap
                 new ShortActionDescription(
                     "Create Servers in BuildMaster for ",
                     new Hilite(this.ConfigurationName),
-                    " Configuration"
+                    " Environment"
                 )
             );
         }
@@ -37,7 +37,7 @@ namespace Inedo.BuildMasterExtensions.Skytap
 
             if (serverIds.Count == 0)
             {
-                this.LogWarning("There were no BuildMaster servers created for this configuration.");
+                this.LogWarning("There were no BuildMaster servers created for this environment.");
                 return;
             }
 
@@ -104,7 +104,7 @@ namespace Inedo.BuildMasterExtensions.Skytap
                         serverId = (int)StoredProcs.Environments_CreateOrUpdateServer(
                             Server_Id: null,
                             Server_Name: "Skytap-" + vm.Id,
-                            ServerGroup_Indicator: Domains.YN.No,
+                            ServerType_Code: Domains.ServerTypeCodes.Server,
                             Agent_Configuration: Util.Persistence.SerializeToPersistedObjectXml(agent),
                             Active_Indicator: Domains.YN.Yes
                         ).Execute();
@@ -121,7 +121,7 @@ namespace Inedo.BuildMasterExtensions.Skytap
                             StoredProcs.Environments_CreateOrUpdateServer(
                                 Server_Id: bmServer.Server_Id,
                                 Server_Name: bmServer.Server_Name,
-                                ServerGroup_Indicator: bmServer.ServerGroup_Indicator,
+                                ServerType_Code: bmServer.ServerType_Code,
                                 Agent_Configuration: agentConfigString,
                                 Active_Indicator: Domains.YN.Yes
                             ).Execute();

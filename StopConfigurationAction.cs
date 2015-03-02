@@ -6,8 +6,8 @@ using Inedo.BuildMasterExtensions.Skytap.SkytapApi;
 namespace Inedo.BuildMasterExtensions.Skytap
 {
     [ActionProperties(
-        "Stop Skytap Configuration",
-        "Suspends, shuts down, or powers off a Skytap configuration and optionally waits for its runstate to change.")]
+        "Stop Skytap Environment",
+        "Suspends, shuts down, or powers off a Skytap environment and optionally waits for its runstate to change.")]
     [Tag("skytap")]
     [CustomEditor(typeof(StopConfigurationActionEditor))]
     public sealed class StopConfigurationAction : SkytapConfigurationActionBase
@@ -27,7 +27,7 @@ namespace Inedo.BuildMasterExtensions.Skytap
                         .Case(StopConfigurationMode.PowerOff, "Power Off ")
                     .End(),
                     new Hilite(this.ConfigurationName),
-                    " Skytap Configuration"
+                    " Skytap Environment"
                 ),
                 new LongActionDescription(
                     this.WaitForStop ? "and wait for it to enter stopped state" : string.Empty
@@ -40,18 +40,18 @@ namespace Inedo.BuildMasterExtensions.Skytap
             var runstate = client.GetConfigurationRunstate(configuration.Id);
             if (runstate == "stopped")
             {
-                this.LogInformation("Configuration {0} is already stopped.", configuration.Name);
+                this.LogInformation("Environment {0} is already stopped.", configuration.Name);
                 return;
             }
 
             if (runstate == "suspended" && this.Runstate == StopConfigurationMode.Suspend)
             {
-                this.LogInformation("Configuration {0} is already suspended.", configuration.Name);
+                this.LogInformation("Environment {0} is already suspended.", configuration.Name);
                 return;
             }
 
             this.LogInformation(
-                "{0} configuration...",
+                "{0} environment...",
                 InedoLib.Util.Switch<StopConfigurationMode, string>(this.Runstate)
                     .Case(StopConfigurationMode.Suspend, "Suspending")
                     .Case(StopConfigurationMode.ShutDown, "Shutting down")
@@ -69,7 +69,7 @@ namespace Inedo.BuildMasterExtensions.Skytap
 
             if (this.WaitForStop)
             {
-                this.LogInformation("Stop command issued; waiting for configuration to enter {0} state...", this.Runstate == StopConfigurationMode.Suspend ? "suspended" : "stopped");
+                this.LogInformation("Stop command issued; waiting for environment to enter {0} state...", this.Runstate == StopConfigurationMode.Suspend ? "suspended" : "stopped");
 
                 do
                 {
@@ -80,9 +80,9 @@ namespace Inedo.BuildMasterExtensions.Skytap
                 while (runstate == "busy");
 
                 if (runstate == "stopped" || runstate == "suspended")
-                    this.LogInformation("Configuration is {0}.", runstate);
+                    this.LogInformation("Environment is {0}.", runstate);
                 else
-                    this.LogError("Configuration is {0}.", runstate);
+                    this.LogError("Environment is {0}.", runstate);
             }
             else
             {

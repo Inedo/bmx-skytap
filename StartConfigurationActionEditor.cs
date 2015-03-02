@@ -38,12 +38,12 @@ namespace Inedo.BuildMasterExtensions.Skytap
 
             this.chkWaitForStart = new CheckBox
             {
-                Text = "Wait for configuration to enter running state",
+                Text = "Wait for environment to enter running state",
                 Checked = true
             };
 
             this.Controls.Add(
-                new SlimFormField("Configuration:", this.ddlConfigurations),
+                new SlimFormField("Environment:", this.ddlConfigurations),
                 new SlimFormField("Options:", this.chkWaitForStart)
             );
         }

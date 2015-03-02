@@ -124,7 +124,7 @@ namespace Inedo.BuildMasterExtensions.Skytap
             }
 
             this.Controls.Add(
-                new SlimFormField("Configuration:", this.ddlConfiguration),
+                new SlimFormField("Environment:", this.ddlConfiguration),
                 new SlimFormField("Published set name:", this.txtPublishedSetName),
                 new SlimFormField("Virtual machines:", this.ctlVmAccess, ctlVmContainer),
                 new SlimFormField("Password:", this.txtPassword),

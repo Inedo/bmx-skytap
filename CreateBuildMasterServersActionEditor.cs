@@ -34,7 +34,7 @@ namespace Inedo.BuildMasterExtensions.Skytap
             };
 
             this.Controls.Add(
-                new SlimFormField("Configuration:", this.ddlConfiguration)
+                new SlimFormField("Environment:", this.ddlConfiguration)
             );
         }
     }

@@ -52,12 +52,12 @@ namespace Inedo.BuildMasterExtensions.Skytap
 
             this.chkWaitForStop = new CheckBox
             {
-                Text = "Wait for configuration to enter target state",
+                Text = "Wait for environment to enter target state",
                 Checked = true
             };
 
             this.Controls.Add(
-                new SlimFormField("Configuration:", this.ddlConfigurations),
+                new SlimFormField("Environment:", this.ddlConfigurations),
                 new SlimFormField("Stop mode:", this.ddlTargetRunstate),
                 new SlimFormField("Options:", this.chkWaitForStop)
             );

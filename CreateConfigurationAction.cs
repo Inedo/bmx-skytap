@@ -7,8 +7,8 @@ using Inedo.BuildMasterExtensions.Skytap.SkytapApi;
 namespace Inedo.BuildMasterExtensions.Skytap
 {
     [ActionProperties(
-        "Create Skytap Configuration",
-        "Creates a new Skytap configuration from an existing template.")]
+        "Create Skytap Environment",
+        "Creates a new Skytap environment from an existing template.")]
     [Tag("skytap")]
     [CustomEditor(typeof(CreateConfigurationActionEditor))]
     public sealed class CreateConfigurationAction : SkytapActionBase
@@ -34,7 +34,7 @@ namespace Inedo.BuildMasterExtensions.Skytap
                 shortDesc.AppendContent(
                     "Create ",
                     new Hilite(this.ConfigurationName),
-                    " Skytap Configuration"
+                    " Skytap Environment"
                 );
             }
 
@@ -46,7 +46,7 @@ namespace Inedo.BuildMasterExtensions.Skytap
             if (this.ExportVariables)
             {
                 longDesc.AppendContent(
-                    ", and set ${Skytap-ConfigurationId} to the configuration ID"
+                    ", and set ${Skytap-EnvironmentId} to the environment ID"
                 );
             }
 
@@ -99,9 +99,9 @@ namespace Inedo.BuildMasterExtensions.Skytap
         private void Execute(SkytapClient client, SkytapResource template)
         {
             if (string.IsNullOrWhiteSpace(this.ConfigurationName))
-                this.LogInformation("Creating configuration from {1} template...", template.Name);
+                this.LogInformation("Creating environment from {1} template...", template.Name);
             else
-                this.LogInformation("Creating {0} configuration from {1} template...", this.ConfigurationName, template.Name);
+                this.LogInformation("Creating {0} environment from {1} template...", this.ConfigurationName, template.Name);
 
             string configurationId;
             try
@@ -110,23 +110,23 @@ namespace Inedo.BuildMasterExtensions.Skytap
             }
             catch (WebException ex)
             {
-                this.LogError("The configuration could not be created: " + ex.Message);
+                this.LogError("The environment could not be created: " + ex.Message);
                 return;
             }
 
-            this.LogDebug("Configuration created (ID={0})", configurationId);
+            this.LogDebug("Environment created (ID={0})", configurationId);
 
             if (!string.IsNullOrWhiteSpace(this.ConfigurationName))
             {
-                this.LogDebug("Setting configuration name to {0}...", this.ConfigurationName);
+                this.LogDebug("Setting environment name to {0}...", this.ConfigurationName);
                 client.RenameConfiguration(configurationId, this.ConfigurationName);
-                this.LogDebug("Configuration renamed.");
+                this.LogDebug("Environment renamed.");
             }
 
             if (this.ExportVariables)
-                this.SetSkytapVariableValue("ConfigurationId", configurationId);
+                this.SetSkytapVariableValue("EnvironmentId", configurationId);
 
-            this.LogInformation("Configuration created.");
+            this.LogInformation("Environment created.");
         }
     }
 }

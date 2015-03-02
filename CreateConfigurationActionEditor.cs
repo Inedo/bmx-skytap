@@ -41,11 +41,11 @@ namespace Inedo.BuildMasterExtensions.Skytap
 
             this.txtConfigurationName = new ValidatingTextBox { MaxLength = 1000 };
 
-            this.chkExportVariables = new CheckBox { Text = "Save ID to ${Skytap-ConfigurationId}", Checked = true };
+            this.chkExportVariables = new CheckBox { Text = "Save ID to ${Skytap-EnvironmentId}", Checked = true };
 
             this.Controls.Add(
                 new SlimFormField("Template:", this.ddlTemplate),
-                new SlimFormField("New configuration name:", this.txtConfigurationName),
+                new SlimFormField("New environment name:", this.txtConfigurationName),
                 new SlimFormField("Options:", this.chkExportVariables)
             );
         }

@@ -16,7 +16,7 @@ namespace Inedo.BuildMasterExtensions.Skytap
             if (configurer == null || string.IsNullOrEmpty(configurer.UserName) || string.IsNullOrEmpty(configurer.Password))
             {
                 e.ValidLevel = ValidationLevel.Warning;
-                e.Message = "This action requires a Skytap user name and password to be provided on the Skytap extension configuration page.";
+                e.Message = "This action requires a Skytap user name and API key to be provided on the Skytap extension configuration page.";
             }
         }
     }

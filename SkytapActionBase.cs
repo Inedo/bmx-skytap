@@ -31,7 +31,7 @@ namespace Inedo.BuildMasterExtensions.Skytap
 
             if (string.IsNullOrWhiteSpace(configurer.Password))
             {
-                this.LogError("A password must be specified in the Skytap extension configuration profile.");
+                this.LogError("An API key must be specified in the Skytap extension configuration profile.");
                 return;
             }
 
@@ -88,7 +88,7 @@ namespace Inedo.BuildMasterExtensions.Skytap
 
             StoredProcs.Variables_CreateOrUpdateVariableDefinition(
                 Variable_Name: "Skytap-" + name,
-                Environment_Id: this.Context.EnvironmentId,
+                Environment_Id: InedoLib.Util.NullIf(this.Context.EnvironmentId, 0),
                 Server_Id: null,
                 ApplicationGroup_Id: null,
                 Application_Id: this.Context.ApplicationId,

@@ -7,8 +7,8 @@ using Inedo.BuildMasterExtensions.Skytap.SkytapApi;
 namespace Inedo.BuildMasterExtensions.Skytap
 {
     [ActionProperties(
-        "Delete Skytap Configuration",
-        "Deletes a Skytap configuration.")]
+        "Delete Skytap Environment",
+        "Deletes a Skytap environment.")]
     [Tag("skytap")]
     [CustomEditor(typeof(DeleteConfigurationActionEditor))]
     public sealed class DeleteConfigurationAction : SkytapConfigurationActionBase
@@ -24,7 +24,7 @@ namespace Inedo.BuildMasterExtensions.Skytap
                 new ShortActionDescription(
                     "Delete ",
                     new Hilite(this.ConfigurationName),
-                    " Skytap Configuration"
+                    " Skytap Environment"
                 )
             );
         }
@@ -33,19 +33,19 @@ namespace Inedo.BuildMasterExtensions.Skytap
         {
             if (configuration == null)
             {
-                this.LogWarning("Configuration {0} not found.", this.ConfigurationName);
+                this.LogWarning("Environment {0} not found.", this.ConfigurationName);
                 return;
             }
 
-            this.LogInformation("Deleting {0} configuration...", configuration.Name);
+            this.LogInformation("Deleting {0} environment...", configuration.Name);
             try
             {
                 client.DeleteConfiguration(configuration.Id);
-                this.LogInformation("Configuration deleted.");
+                this.LogInformation("Environment deleted.");
             }
             catch(Exception ex)
             {
-                this.LogError("The configuration could not be deleted: " + ex.Message);
+                this.LogError("The environment could not be deleted: " + ex.Message);
             }
         }
     }

@@ -33,7 +33,7 @@ namespace Inedo.BuildMasterExtensions.Skytap
             };
 
             this.Controls.Add(
-                new SlimFormField("Configuration to delete:", this.ddlConfiguration)
+                new SlimFormField("Environment to delete:", this.ddlConfiguration)
             );
         }
     }

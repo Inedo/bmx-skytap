@@ -12,7 +12,7 @@ namespace Inedo.BuildMasterExtensions.Skytap
 {
     [ActionProperties(
         "Publish Skytap Resource Links",
-        "Creates a Skytap Publish Set for an entire configuration or some of its virtual machines.")]
+        "Creates a Skytap Publish Set for an entire environment or some of its virtual machines.")]
     [Tag("skytap")]
     [CustomEditor(typeof(PublishResourceLinksActionEditor))]
     public sealed class PublishResourceLinksAction : SkytapConfigurationActionBase
@@ -47,23 +47,23 @@ namespace Inedo.BuildMasterExtensions.Skytap
 
         public override ActionDescription GetActionDescription()
         {
-            var shortDesc = new ShortActionDescription("Publish ", this.ConfigurationName, " Skytap Configuration");
+            var shortDesc = new ShortActionDescription("Publish ", this.ConfigurationName, " Skytap Environment");
             if (!string.IsNullOrEmpty(this.PublishedSetName))
-                shortDesc.AppendContent(" to ", new Hilite(this.PublishedSetName));
+                shortDesc.AppendContent(" to ", new Inedo.BuildMaster.Extensibility.Actions.Hilite(this.PublishedSetName));
 
             var longDesc = new LongActionDescription("with ");
             if (this.VirtualMachines == null || this.VirtualMachines.Length == 0)
             {
                 longDesc.AppendContent(
-                    new Hilite("all"),
+                    new Inedo.BuildMaster.Extensibility.Actions.Hilite("all"),
                     " virtual machines at ",
-                    new Hilite(this.DefaultAccess)
+                    new Inedo.BuildMaster.Extensibility.Actions.Hilite(this.DefaultAccess)
                 );
             }
             else
             {
                 longDesc.AppendContent(
-                    new ListHilite(this.VirtualMachines.Select(v => string.Format("{0} ({1})", v.Name, v.Access)))
+                    new Inedo.BuildMaster.Extensibility.Actions.ListHilite(this.VirtualMachines.Select(v => string.Format("{0} ({1})", v.Name, v.Access)))
                 );
                 longDesc.AppendContent(" virtual machines");
             }
@@ -71,10 +71,10 @@ namespace Inedo.BuildMasterExtensions.Skytap
             var extraInfo = new List<object>();
 
             if (!string.IsNullOrEmpty(this.RuntimeLimitHours))
-                extraInfo.Add(new object[] { "runtime limit of ", new Hilite(this.RuntimeLimitHours + " hours") });
+                extraInfo.Add(new object[] { "runtime limit of ", new Inedo.BuildMaster.Extensibility.Actions.Hilite(this.RuntimeLimitHours + " hours") });
 
             if (!string.IsNullOrEmpty(this.ExpirationHours))
-                extraInfo.Add(new object[] { "expiring after ", new Hilite(this.ExpirationHours + " hours") });
+                extraInfo.Add(new object[] { "expiring after ", new Inedo.BuildMaster.Extensibility.Actions.Hilite(this.ExpirationHours + " hours") });
 
             if (!string.IsNullOrEmpty(this.DailyAccessStart) && !string.IsNullOrEmpty(this.DailyAccessEnd))
             {
@@ -86,9 +86,9 @@ namespace Inedo.BuildMasterExtensions.Skytap
                     new object[]
                     {
                         "daily access from ",
-                        new Hilite((today + start).ToShortTimeString()),
+                        new Inedo.BuildMaster.Extensibility.Actions.Hilite((today + start).ToShortTimeString()),
                         " to ",
-                        new Hilite((today + end).ToShortTimeString())
+                        new Inedo.BuildMaster.Extensibility.Actions.Hilite((today + end).ToShortTimeString())
                     }
                 );
             }
@@ -113,7 +113,7 @@ namespace Inedo.BuildMasterExtensions.Skytap
                 return;
             }
 
-            this.LogInformation("Getting list of virtual machines for {0} configuration...", configuration.Name);
+            this.LogInformation("Getting list of virtual machines for {0} environment...", configuration.Name);
             var configVms = client.ListVms(configuration.Id).ToList();
 
             this.LogDebug("Received {0} virtual machines.", configVms.Count);
@@ -140,12 +140,12 @@ namespace Inedo.BuildMasterExtensions.Skytap
                     }
                     else if (vm.Matches.Count == 0)
                     {
-                        this.LogError("Could not resolve virtual machine named {0} in {1} configuration.", vm.Name, configuration.Name);
+                        this.LogError("Could not resolve virtual machine named {0} in {1} environment.", vm.Name, configuration.Name);
                         errors = true;
                     }
                     else
                     {
-                        this.LogError("Ambiguous virtual machine names ({0}) in {1} configuration.", vm.Name, configuration.Name);
+                        this.LogError("Ambiguous virtual machine names ({0}) in {1} environment.", vm.Name, configuration.Name);
                         errors = true;
                     }
                 }

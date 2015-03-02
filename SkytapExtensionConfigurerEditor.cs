@@ -35,7 +35,7 @@ namespace Inedo.BuildMasterExtensions.Skytap
 
             this.Controls.Add(
                 new SlimFormField("User name:", this.txtUserName),
-                new SlimFormField("Password:", this.txtPassword)
+                new SlimFormField("API key:", this.txtPassword)
             );
         }
     }
