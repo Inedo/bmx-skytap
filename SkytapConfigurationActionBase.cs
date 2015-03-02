@@ -30,6 +30,8 @@ namespace Inedo.BuildMasterExtensions.Skytap
                 return;
             }
 
+            this.LogDebug("Using best match for environment Id={0}, environment name={1}", this.ConfigurationId, this.ConfigurationName);
+
             var notFoundLogLevel = this.allowConfigNotFound ? MessageLevel.Debug : MessageLevel.Error;
 
             this.LogDebug("Looking up environment on Skytap...");
