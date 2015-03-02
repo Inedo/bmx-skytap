@@ -57,7 +57,7 @@ namespace Inedo.BuildMasterExtensions.Skytap
                 }
             }
 
-            if(!string.IsNullOrWhiteSpace(this.ConfigurationName))
+            if (configuration == null && !string.IsNullOrWhiteSpace(this.ConfigurationName))
             {
                 configuration = client.GetConfigurationFromName(this.ConfigurationName);
                 if (configuration == null)
