@@ -105,14 +105,18 @@ namespace Inedo.BuildMasterExtensions.Skytap
                         {
                             while (!connectTask.IsCompleted)
                             {
-                                connectTask.Wait(100);
+                                try
+                                {
+                                    connectTask.Wait(100);
+                                    connected = true;
+                                }
+                                catch (AggregateException)
+                                {
+                                    Thread.Sleep(1000);
+                                }
+
                                 this.ThrowIfCanceledOrTimeoutExpired();
                             }
-
-                            if (connectTask.Exception == null)
-                                connected = true;
-                            else
-                                Thread.Sleep(1000);
                         }
                     }
                     while (!connected);
