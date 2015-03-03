@@ -2,7 +2,10 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Net.Sockets;
 using System.Reflection;
+using System.Threading;
+using System.Threading.Tasks;
 using Inedo.BuildMaster;
 using Inedo.BuildMaster.Data;
 using Inedo.BuildMaster.Extensibility.Actions;
@@ -90,6 +93,29 @@ namespace Inedo.BuildMasterExtensions.Skytap
                 {
                     this.LogInformation("Virtual machine {0} does not have any published services with known BuildMaster agent ports or SSH ports.", vm.Name);
                     continue;
+                }
+
+                this.LogDebug("Waiting for {0}:{1} to start accepting connections...", publishedService.ExternalIPAddress, publishedService.ExternalPort);
+                using (var tcpClient = new TcpClient())
+                {
+                    bool connected = false;
+                    do
+                    {
+                        using (var connectTask = Task.Factory.FromAsync(tcpClient.BeginConnect, tcpClient.EndConnect, publishedService.ExternalIPAddress, publishedService.ExternalPort, null))
+                        {
+                            while (!connectTask.IsCompleted)
+                            {
+                                connectTask.Wait(100);
+                                this.ThrowIfCanceledOrTimeoutExpired();
+                            }
+
+                            if (connectTask.Exception == null)
+                                connected = true;
+                            else
+                                Thread.Sleep(1000);
+                        }
+                    }
+                    while (!connected);
                 }
 
                 var bmServer = buildMasterServers.GetValueOrDefault("Skytap-" + vm.Id);
