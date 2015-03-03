@@ -107,8 +107,7 @@ namespace Inedo.BuildMasterExtensions.Skytap
                             {
                                 try
                                 {
-                                    connectTask.Wait(100);
-                                    connected = true;
+                                    connected = connectTask.Wait(100);
                                 }
                                 catch (AggregateException)
                                 {
